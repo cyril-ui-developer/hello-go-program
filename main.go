@@ -9,6 +9,6 @@ func main() {
 }
 
 func sayHello (name string) string {
-  return fmt.Sprintf("H %s", name)
+  return fmt.Sprintf("Hello %s", name)
 }
 
