@@ -22,7 +22,7 @@ func TestAdd(t *testing.T){
 		t.Errorf("Expected. %q, got %q instead,", taskNameOne, l[0].Task)
 	}
 
-	if l[0].Task != taskNameTwo {
+	if l[1].Task != taskNameTwo {
 		t.Errorf("Expected. %q, got %q instead,", taskNameTwo, l[1].Task)
 	}
 }
