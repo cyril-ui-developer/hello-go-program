@@ -11,7 +11,13 @@ import(
 const todoFileName = ".todo.json"
 
 func main (){
- fmt.Print("Todo CLI")
+ //fmt.Print("Todo CLI")
+ flag.Usage = func(){
+	 fmt.Fprintf(flag.CommandLine.Output(),
+	"%s tool. A todo CLI developed by CY \n", os.Args[0])
+
+	flag.PrintDefaults()
+ } 
 
  task := flag.String("task", "", "Add a new task to te list")
  list := flag.Bool("list", false, "List all the tasks")
@@ -27,9 +33,10 @@ func main (){
 
  switch {
  case *list:
-	 for _, item := range *l {
-      fmt.Println(item.Task)
-	 }
+	//  for _, item := range *l {
+    //   fmt.Println(item.Task)
+	//  }
+	fmt.Print(l)
 	case *task != "":
 		l.Add(*task)
 
