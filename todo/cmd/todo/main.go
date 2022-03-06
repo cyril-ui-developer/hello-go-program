@@ -2,10 +2,8 @@ package main
 
 import(
 	"fmt"
-//	"testing"
-	//"io/ioutil"
+	"flag"
 	"os"
-    "strings"
 
 	"github.com/cyril-ui-developer/hello-go-program/todo"
 )
@@ -15,6 +13,11 @@ const todoFileName = ".todo.json"
 func main (){
  fmt.Print("Todo CLI")
 
+ task := flag.String("task", "", "Add a new task to te list")
+ list := flag.Bool("list", false, "List all the tasks")
+
+ flag.Parse()
+
  l := &todo.List{}
 
  if err := l.Get(todoFileName); err != nil {
@@ -23,18 +26,19 @@ func main (){
  }
 
  switch {
- case len(os.Args) == 1:
+ case *list:
 	 for _, item := range *l {
       fmt.Println(item.Task)
 	 }
-	default:
-		item := strings.Join(os.Args[1:], " ")
-
-		l.Add(item)
+	case *task != "":
+		l.Add(*task)
 
 		if err := l.Save(todoFileName); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
+default:
+			fmt.Fprintln(os.Stderr, "Invalid option")
+			os.Exit(1)
  }
 }
