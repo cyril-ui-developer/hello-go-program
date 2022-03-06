@@ -8,10 +8,14 @@ import(
 	"github.com/cyril-ui-developer/hello-go-program/todo"
 )
 
-const todoFileName = ".todo.json"
+var todoFileName = ".todo.json"
 
 func main (){
- //fmt.Print("Todo CLI")
+
+if os.Getenv("TODO_FILENAME") != "" {
+	todoFileName = os.Getenv("TODO_FILENAME")
+}	
+
  flag.Usage = func(){
 	 fmt.Fprintf(flag.CommandLine.Output(),
 	"%s tool. A todo CLI developed by CY \n", os.Args[0])
@@ -33,9 +37,6 @@ func main (){
 
  switch {
  case *list:
-	//  for _, item := range *l {
-    //   fmt.Println(item.Task)
-	//  }
 	fmt.Print(l)
 	case *task != "":
 		l.Add(*task)
